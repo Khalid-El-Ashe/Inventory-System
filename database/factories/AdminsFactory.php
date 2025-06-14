@@ -17,7 +17,7 @@ class AdminsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            
         ];
     }
 }
