@@ -25,7 +25,7 @@ function register(url, guard, data) {
             if (error.response) {
                 alert(error.response.data.message);
             } else {
-                alert("حدث خطأ غير متوقع");
+                alert("something is worning");
             }
         });
 }
