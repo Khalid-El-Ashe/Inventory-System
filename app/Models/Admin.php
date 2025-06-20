@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Admin extends Authenticatable
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'customer_id',
+        'manage_id',
+    ];
 }

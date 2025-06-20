@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Dashboard\AccountsController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,10 +36,15 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('sales', SaleController::class);
+    Route::resource('notifications', NotificationController::class);
+    Route::resource('accounts', AccountsController::class);
 });
-Route::prefix('dashboard/manager')->middleware('auth:admin,manager')->group(function () {
+Route::prefix('dashboard/manager')->middleware('auth:manager')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('manager.dashboard');
 });
-Route::prefix('dashboard/customer')->middleware('auth:admin,customer')->group(function () {
+Route::prefix('dashboard/customer')->middleware('auth:customer')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('customer.dashboard');
 });

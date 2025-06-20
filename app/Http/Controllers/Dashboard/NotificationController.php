@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Admin;
+use App\Http\Controllers\Controller;
+
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +36,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(Notification $notification)
     {
         //
     }
@@ -39,7 +44,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin)
+    public function edit(Notification $notification)
     {
         //
     }
@@ -47,7 +52,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Notification $notification)
     {
         //
     }
@@ -55,15 +60,8 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Admin $admin)
+    public function destroy(Notification $notification)
     {
         //
-    }
-
-    public function accounts()
-    {
-        // in this first i need get the managers and customers to can i blocked or actived account
-        $managers = Admin::with('managers')->get();
-        $customers = Admin::with('customers')->get();
     }
 }

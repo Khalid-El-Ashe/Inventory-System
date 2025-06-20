@@ -52,7 +52,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="button" onclick="submitRegister('{{ $guard }}')" class="btn btn-info">Register</button>
+                <button type="button" onclick="submitRegister('{{ $guard }}')" class="btn btn-success">Register</button>
             </div>
             <div class="social-auth-links text-center mb-3">
                 <p>- OR -</p>

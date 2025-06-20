@@ -53,9 +53,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="button" onclick="submitLogin('{{ $guard }}')" class="btn btn-info">Sign in</button>
+                <button type="button" onclick="submitLogin('{{ $guard }}')" class="btn btn-primary">Sign in</button>
                 {{-- <button type="submit" class="btn btn-default float-right">Rgister</button> --}}
-                <a href="{{route('auth.register', $guard)}}" class="btn btn-warning float-right">Register</a>
+                <a href="{{route('auth.register', $guard)}}" class="btn btn-success float-right">Register</a>
             </div>
             <div class="social-auth-links text-center mb-3">
                 <p>- OR -</p>
