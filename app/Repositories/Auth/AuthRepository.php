@@ -2,11 +2,16 @@
 
 namespace App\Repositories\Auth;
 
-interface AuthRepository
+use App\Http\Requests\AuthFormRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+
+
+interface AuthRepository // you must add this class in the AppServiceProvider
 {
-    public function login();
-    public function logout();
-    public function register();
+    public function login(AuthFormRequest $request);
+    public function logout(Request $request): RedirectResponse;
+    public function register(AuthFormRequest $request, $guard);
     public function resetPassword();
     public function changePassword();
     public function getUserProfile();

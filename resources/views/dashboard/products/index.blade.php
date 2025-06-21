@@ -40,7 +40,13 @@
                         <td>{{$product->price}}</td>
                         <td>{{$product->quantity}}</td>
                         <td>
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" width="50">
+                            @if ($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" class="rounded-circle" width="50"
+                                height="50">
+                            @else
+                            <img src="{{ asset('storage/broken-image.png')}}" class="rounded-circle" width="50"
+                                height="50">
+                            @endif
                         </td>
                         <td>{{ $product->category ? $product->category->name : '-' }}</td>
                     </tr>

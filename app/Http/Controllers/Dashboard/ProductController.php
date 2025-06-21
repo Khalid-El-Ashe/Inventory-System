@@ -3,19 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    protected $repository;
+    public function __construct(ProductRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-        return view('dashboard.products.index', ['products' => $products]);
+        return $this->repository->get();
     }
 
     /**
@@ -30,45 +38,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
     {
-        $validator = $request->validate(
-            [
-                'name' => 'required|string|max:255|unique:products,name',
-                'description' => 'nullable|string',
-                'price' => 'required|numeric|min:0',
-                'quantity' => 'required|integer|min:0',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'category_id' => 'required|exists:categories,id',
-            ],
-            [
-                'name.required' => 'The product name is required.',
-                'name.unique' => 'The product name must be unique.',
-                'price.required' => 'The price is required.',
-                'quantity.required' => 'The quantity is required.',
-                'category_id.required' => 'The category is required.',
-            ]
-        );
-
-        // Handle file upload if an image is provided
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $validator['image'] = $imagePath;
-        }
-        // Create the product
-        $product = Product::create($validator);
-        dd($product);
-        // return redirect()->route('dashboard.products.index')->with('success', 'Product created successfully.');
+        return $this->repository->add($request);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -82,7 +56,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // if ($request->hasFile('image')) {
+        //     $path = $this->uploadFile($request, 'image');
+        //     $data['image'] = $path;
+
+        //     if ($old_image) {
+        //         Storage::disk('public')->delete($old_image);
+        //     }
+        // }
     }
 
     /**

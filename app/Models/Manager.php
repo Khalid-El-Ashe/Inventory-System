@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Manager extends Authenticatable
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'email', 'email_verified_at', 'password'];
 }

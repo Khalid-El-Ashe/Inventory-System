@@ -51,6 +51,7 @@
                 </div>
             </div>
 
+            <input type="hidden" id="guard" name="guard" value="{{ $guard }}">
             <div class="card-footer">
                 <button type="button" onclick="submitRegister('{{ $guard }}')" class="btn btn-success">Register</button>
             </div>
@@ -83,7 +84,8 @@
     const data = {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
-    password: document.getElementById('password').value
+    password: document.getElementById('password').value,
+    guard: guard
     };
 
     const url = `/auth/${guard}/register`;
