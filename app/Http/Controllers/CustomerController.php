@@ -12,7 +12,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.customers.index', [
+            'customers' => Customer::with('orders')->get()
+        ]);
     }
 
     /**

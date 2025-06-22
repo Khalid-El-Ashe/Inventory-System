@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Dashboard\AccountsController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -46,5 +47,5 @@ Route::prefix('dashboard/manager')->middleware('auth:manager')->group(function (
     Route::get('/home', [DashboardController::class, 'index'])->name('manager.dashboard');
 });
 Route::prefix('dashboard/customer')->middleware('auth:customer')->group(function () {
-    Route::get('/home', [DashboardController::class, 'index'])->name('customer.dashboard');
+    Route::get('/home/{slug}', [CustomerController::class, 'index'])->name('home');
 });

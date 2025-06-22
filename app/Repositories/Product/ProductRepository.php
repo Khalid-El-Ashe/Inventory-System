@@ -9,9 +9,11 @@ interface ProductRepository // you must add this class in the RepositoryServiceP
 {
     // public function get(): Collection;
     public function get();
-    public function add(ProductFormRequest $request);
+    public function add(ProductFormRequest $request, Product $product);
     public function delete($id);
     public function empty();
     // public function total(): float;
-    public function update(ProductFormRequest $request);
+    public function update(ProductFormRequest $request, string $id);
+    public function searchProduct(Product $product);
+    public function filter(ProductFormRequest $request);
 }

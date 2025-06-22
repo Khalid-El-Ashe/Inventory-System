@@ -38,32 +38,26 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductFormRequest $request)
+    public function store(ProductFormRequest $request, Product $product)
     {
-        return $this->repository->add($request);
+        return $this->repository->add($request, $product);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('dashboard.products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductFormRequest $request, string $id)
     {
-        // if ($request->hasFile('image')) {
-        //     $path = $this->uploadFile($request, 'image');
-        //     $data['image'] = $path;
-
-        //     if ($old_image) {
-        //         Storage::disk('public')->delete($old_image);
-        //     }
-        // }
+        return $this->repository->update($request, $id);
     }
 
     /**
@@ -71,6 +65,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->repository->delete($id);
     }
 }

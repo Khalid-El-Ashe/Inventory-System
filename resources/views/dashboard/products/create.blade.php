@@ -41,16 +41,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Product image</label>
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose image</label>
-                    </div>
-                    <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                    </div>
+                <label for="image">Choose Image</label>
+                <div class="custom-file">
+                    <label class="custom-file-label" for="image">Choose image</label>
+                    <input type="file" class="custom-file-input" name="image" id="image">
+                    {{-- لاحظ فوق اني انا فقط معطي المستخدم يرفع بس صور accept="image*/" --}}
                 </div>
+                <img id="preview-image" src="#" alt="Selected Image" style="display: none; max-height: 150px;"
+                    class="mt-2 rounded">
             </div>
         </div>
         <div class="card-footer">
@@ -59,4 +57,22 @@
     </form>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    document.getElementById("image").addEventListener("change", function (event) {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    if (file) {
+    reader.onload = function (e) {
+    const preview = document.getElementById("preview-image");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+    }
+    });
+</script>
 @endsection

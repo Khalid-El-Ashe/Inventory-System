@@ -10,6 +10,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('cms/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('cms/dist/css/adminlte.min.css') }}">
@@ -184,45 +185,59 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
 
-                        <li class="nav-header"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                        <i class="fa-duotone "></i>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                                {{-- <i class="fas fa-th-large"></i> --}}
+                                <img src="{{ asset('icons/dashboard.png') }}" class="m-2" width="20" height="20">
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-header"><a href="{{route('')}}"></a></li> --}}
                         <li class="nav-item">
                             <a href="{{route('products.index')}}"
                                 class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/cost.png') }}" class="m-2" width="20" height="20">
                                 <p>إجمالي المنتجات</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('categories.index')}}"
                                 class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/categories.png') }}" class="m-2" width="20" height="20">
                                 <p>التصنيفات</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('sales.index')}}"
                                 class="nav-link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/sales.png') }}" class="m-2" width="20" height="20">
                                 <p>المبيعات</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('notifications.index')}}"
                                 class="nav-link {{ request()->routeIs('notifications.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/notification.png') }}" class="m-2" width="20" height="20">
                                 <p>التنبيهات</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('accounts.index')}}"
                                 class="nav-link {{ request()->routeIs('accounts.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/teamwork.png') }}" class="m-2" width="20" height="20">
                                 <p>المستخدمين</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link {{ request()->routeIs('') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <img src="{{ asset('icons/problem-solving.png') }}" class="m-2" width="20" height="20">
                                 <p>المنتجات الناقصة</p>
                             </a>
                         </li>
@@ -312,6 +327,7 @@
     <script src="{{ asset('cms/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('cms/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('cms/dist/js/adminlte.min.js') }}"></script>
     {{-- Sweet Alert 2 --}}
