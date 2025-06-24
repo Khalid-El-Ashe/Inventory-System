@@ -1,7 +1,7 @@
 @extends('dashboard.parent')
 @section('content')
 
-<div class="card card-primary m-3">
+<div class="card card-secondary m-3">
     <div class="card-header">
         <h3 class="card-title">Create new Product</h3>
     </div>
@@ -24,11 +24,8 @@
             <div class="form-group">
                 <label>Quantity</label>
                 <select class="form-control" name="quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    @for ($i = 1; $i < 100; $i++) <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
                 </select>
             </div>
             <div class="form-group">
@@ -52,7 +49,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-info">Submit</button>
         </div>
     </form>
 </div>

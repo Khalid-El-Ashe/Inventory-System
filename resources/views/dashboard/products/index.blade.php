@@ -14,26 +14,39 @@
 
 <div>
     <a href="{{route('products.create')}}" class="btn btn-outline-primary m-3">Add new Product</a>
-    <div class="card m-3">
+    <a href="{{route('products.trashed')}}" class="btn btn-outline-secondary m-3">Trashes</a>
+    <div class="card text-white bg-secondary m-3">
         <div class="card-header">
-            <h3 class="card-title">Products Table</h3>
-
             <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between mb-4 mx-2">
 
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    {{--
+                    <x-form.input name="name" placeholder="Name" :value="request('name')" /> --}}
+                    <input type="text" name="name" class="form-control float-right" placeholder="Search"
+                        value="{{ request('name') }}">
+                    <span class="input-group-append">
+                        <button type="submit" class="btn btn-info btn-flat">Seach</button>
+                    </span>
+                    {{-- <button class="btn btn-primary"></button> --}}
+                </form>
+                {{-- <form action="{{route('products.search')}}" method="get">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="query" class="form-control float-right" placeholder="Search">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form> --}}
             </div>
         </div>
+
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
+        <div class="card-body table-secondary p-0">
             <table class="table table-hover text-nowrap">
-                <thead>
+                <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>

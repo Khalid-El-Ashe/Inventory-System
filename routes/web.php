@@ -38,6 +38,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('products', ProductController::class);
+    Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
+    Route::get('products/trashed', [ProductController::class, 'getTrashedProducts'])->name('products.trashed');
     Route::resource('categories', CategoryController::class);
     Route::resource('sales', SaleController::class);
     Route::resource('notifications', NotificationController::class);

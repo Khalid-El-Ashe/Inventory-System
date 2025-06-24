@@ -4,6 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Request;
 
 interface ProductRepository // you must add this class in the RepositoryServiceProvider
 {
@@ -14,6 +15,7 @@ interface ProductRepository // you must add this class in the RepositoryServiceP
     public function empty();
     // public function total(): float;
     public function update(ProductFormRequest $request, string $id);
-    public function searchProduct(Product $product);
+    public function searchProduct(Request $product);
     public function filter(ProductFormRequest $request);
+    public function getTrashedProducts();
 }

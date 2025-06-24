@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{{-- <html lang="ar" dir="rtl"> --}}
 
 <head>
     <meta charset="utf-8">
@@ -185,7 +186,6 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
 
-                        <i class="fa-duotone "></i>
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link">
                                 {{-- <i class="fas fa-th-large"></i> --}}
@@ -196,7 +196,7 @@
                         {{-- <li class="nav-header"><a href="{{route('')}}"></a></li> --}}
                         <li class="nav-item">
                             <a href="{{route('products.index')}}"
-                                class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('products.index') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/cost.png') }}" class="m-2" width="20" height="20">
                                 <p>إجمالي المنتجات</p>
@@ -204,7 +204,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('categories.index')}}"
-                                class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('categories.index') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/categories.png') }}" class="m-2" width="20" height="20">
                                 <p>التصنيفات</p>
@@ -212,7 +212,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('sales.index')}}"
-                                class="nav-link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('sales.index') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/sales.png') }}" class="m-2" width="20" height="20">
                                 <p>المبيعات</p>
@@ -220,7 +220,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('notifications.index')}}"
-                                class="nav-link {{ request()->routeIs('notifications.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('notifications.index') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/notification.png') }}" class="m-2" width="20" height="20">
                                 <p>التنبيهات</p>
@@ -228,14 +228,14 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('accounts.index')}}"
-                                class="nav-link {{ request()->routeIs('accounts.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('accounts.index') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/teamwork.png') }}" class="m-2" width="20" height="20">
                                 <p>المستخدمين</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link {{ request()->routeIs('') ? 'active' : '' }}">
+                            <a href="" class="nav-link {{ request()->routeIs('') ? 'active bg-light text-dark' : '' }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <img src="{{ asset('icons/problem-solving.png') }}" class="m-2" width="20" height="20">
                                 <p>المنتجات الناقصة</p>

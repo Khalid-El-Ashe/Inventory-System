@@ -7,7 +7,7 @@ use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
 {
@@ -43,6 +43,12 @@ class ProductController extends Controller
         return $this->repository->add($request, $product);
     }
 
+    public function show($id)
+    {
+        $product = Product::where('id', '=', $id)->with('category')->first();
+        return view('dashboard.products.show', ['product' => $product]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -66,5 +72,25 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         return $this->repository->delete($id);
+    }
+
+    public function empty()
+    {
+        return $this->repository->empty();
+    }
+
+    // public function total(): float
+    // {
+    //     return $this->repository->total();
+    // }
+
+    public function search(Request $request)
+    {
+        return $this->repository->searchProduct($request);
+    }
+
+    public function getTrashedProducts()
+    {
+        return $this->repository->getTrashedProducts();
     }
 }

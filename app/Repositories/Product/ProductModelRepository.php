@@ -13,8 +13,10 @@ class ProductModelRepository implements ProductRepository // you must add this c
 
     public function get()
     {
-        $products = Product::with('category')->latest()->paginate(10);
-        $product = Product::with('category')->latest()->first();
+        // $request = request();
+        // ->filter($request->query())
+        $products = Product::withoutTrashed()->with('category')->latest()->paginate(10);
+        $product = Product::with('category')->latest()->first(); // this attribute to the dialog form data
         $categories = Category::all();
         return view('dashboard.products.index', ['products' => $products, 'product' => $product, 'categories' => $categories]);
     }
@@ -26,7 +28,7 @@ class ProductModelRepository implements ProductRepository // you must add this c
         // Handle file upload if an image is provided
         if ($request->hasFile('image')) {
             // $imagePath = $request->file('image')->store('products', 'public');
-            $imagePath = $this->uploadFile($product, $request, 'image');
+            $imagePath = $this->uploadFile($request, 'image');
             $validated['image'] = $imagePath;
         }
         // Create the product
@@ -51,8 +53,7 @@ class ProductModelRepository implements ProductRepository // you must add this c
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            dd($request->file('image'));
-            $path = $this->uploadFile($product, $request, 'image');
+            $path = $this->uploadFile($request, 'image');
             $data['image'] = $path;
 
             if ($old_image) {
@@ -60,8 +61,8 @@ class ProductModelRepository implements ProductRepository // you must add this c
             }
         }
 
-        dd($data);
         $product->update($data);
+        // dd($product->fresh());
 
         return redirect()->route('products.index');
     }
@@ -73,19 +74,16 @@ class ProductModelRepository implements ProductRepository // you must add this c
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
-    public function searchProduct(Product $product)
+    public function searchProduct(Request $request)
     {
-        // $query = $request->input('query');
-        // $products = Product::with('category')
-        //     ->active()
-        //     ->where('name', 'like', '%' . $query . '%')
-        //     ->orWhere('description', 'like', '%' . $query . '%')
-        //     ->paginate(12);
+        $query = $request->input('query');
+        $products = Product::with('category')
+            ->where('name', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->paginate(5);
 
-        // return view('front.products.search', ['products' => $products, 'query' => $query]);
-
-        // Implement search logic here if needed
-        return Product::where('name', 'like', '%' . $product->name . '%')->get();
+        // $categories = Category::all();
+        return view('dashboard.products.index', ['products' => $products, 'query' => $query]);
     }
 
     public function filter(ProductFormRequest $request)
@@ -121,7 +119,7 @@ class ProductModelRepository implements ProductRepository // you must add this c
     }
 
     // in here you can to write all method you need to use in all controllers project
-    protected function uploadFile(Product $product, ProductFormRequest $request, $filename)
+    protected function uploadFile(ProductFormRequest $request, $filename)
     {
         if (!$request->hasFile($filename)) {
             return; // no file to upload
@@ -133,7 +131,14 @@ class ProductModelRepository implements ProductRepository // you must add this c
         // $file->getClientOriginalExtension();
         // $file->getMimeType(); // image/png file/txt,pdf ....
         // $file->getError(); // 0 if no error, otherwise it will return the error code
-        $path = $file->store('uploads', ['disk' => 'public']);
+        $path = $file->store('products', 'public');
         return $path;
+    }
+
+    public function getTrashedProducts()
+    {
+        $productsTrashed = Product::with('category')->onlyTrashed()->get();
+        $categories = Category::all();
+        return view('dashboard.products.trashed', ['products' => $productsTrashed, 'categories' => $categories]);
     }
 }
