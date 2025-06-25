@@ -36,7 +36,6 @@ class ProductModelRepository implements ProductRepository // you must add this c
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
-    public function empty() {}
 
     // public function total(): float
     // {
@@ -137,8 +136,15 @@ class ProductModelRepository implements ProductRepository // you must add this c
 
     public function getTrashedProducts()
     {
-        $productsTrashed = Product::with('category')->onlyTrashed()->get();
+        $productsTrashed = Product::with('category')->onlyTrashed()->paginate(10);
         $categories = Category::all();
         return view('dashboard.products.trashed', ['products' => $productsTrashed, 'categories' => $categories]);
+    }
+
+    public function restore($id)
+    {
+        $product = Product::withTrashed()->findOrFail($id);
+        $product->restore();
+        return redirect()->route('products.trashed')->with('success', 'Product restored successfully.');
     }
 }

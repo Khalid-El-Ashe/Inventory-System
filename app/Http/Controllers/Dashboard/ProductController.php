@@ -74,11 +74,6 @@ class ProductController extends Controller
         return $this->repository->delete($id);
     }
 
-    public function empty()
-    {
-        return $this->repository->empty();
-    }
-
     // public function total(): float
     // {
     //     return $this->repository->total();
@@ -92,5 +87,9 @@ class ProductController extends Controller
     public function getTrashedProducts()
     {
         return $this->repository->getTrashedProducts();
+    }
+    public function restore($id)
+    {
+        return $this->repository->restore($id);
     }
 }

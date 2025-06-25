@@ -1,11 +1,11 @@
 @extends('dashboard.parent')
 @section('content')
 
-{{--
-<x-table /> --}}
 <div>
-    <a href="{{route('categories.create')}}" class="btn btn-outline-primary m-3">Add new Category</a>
+    <a href="{{route('categories.create')}}" class="btn btn-primary ms-3">Add new Category</a>
     <div class="card text-white bg-secondary m-3">
+
+        <x-toaster-success />
 
         <div class="card-header">
             <div class="card-tools">
@@ -18,19 +18,7 @@
                     <span class="input-group-append">
                         <button type="submit" class="btn btn-info btn-flat">Seach</button>
                     </span>
-                    {{-- <button class="btn btn-primary"></button> --}}
                 </form>
-                {{-- <form action="{{route('products.search')}}" method="get">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="query" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
             </div>
         </div>
         <!-- /.card-header -->
@@ -48,10 +36,19 @@
                     @foreach ($categories as $category)
                     <tr>
                         <td>{{$category->id}}</td>
-                        <td>{{$category->name}}</td>
-                        <td>{{ $category->products->count() }}</td>
+                        <td class="fs-5 fw-bold">{{$category->name}}</span></td>
+                        <td><span class="badge fs-6 bg-info tx"> {{$category->products->count() }}</span></td>
                         <td>
-                            <a href="" class="btn btn-outline-success mx-1">عرض</a>
+                            <div class="btn-groub">
+                                <a href="{{ route('categories.show', $category->id) }}"
+                                    class="btn btn-outline-success mx-1">عرض</a>
+                                <form action="{{route('categories.destroy', $category->id)}}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger mx-1">حذف</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

@@ -12,10 +12,10 @@ interface ProductRepository // you must add this class in the RepositoryServiceP
     public function get();
     public function add(ProductFormRequest $request, Product $product);
     public function delete($id);
-    public function empty();
     // public function total(): float;
     public function update(ProductFormRequest $request, string $id);
     public function searchProduct(Request $product);
     public function filter(ProductFormRequest $request);
     public function getTrashedProducts();
+    public function restore($id);
 }

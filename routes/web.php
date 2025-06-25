@@ -37,9 +37,14 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::resource('products', ProductController::class);
+    // في موضوع المسارات انا وقعت في خطأ شائع وهو الترتيب
+    // في ترتيب المسارات بحيث اني وضعت مسار البحث قبل مسار الموارد
+    // وهذا جعل مسار البحث لا يعمل بشكل صحيح ولا حتى مسار جلب المحذوفات
     Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
     Route::get('products/trashed', [ProductController::class, 'getTrashedProducts'])->name('products.trashed');
+    Route::get('products/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
+    Route::resource('products', ProductController::class);
+    //////////////////////////////////////////////////////
     Route::resource('categories', CategoryController::class);
     Route::resource('sales', SaleController::class);
     Route::resource('notifications', NotificationController::class);

@@ -13,8 +13,10 @@
 ])
 
 <div>
-    <a href="{{route('products.create')}}" class="btn btn-outline-primary m-3">Add new Product</a>
-    <a href="{{route('products.trashed')}}" class="btn btn-outline-secondary m-3">Trashes</a>
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <a href="{{route('products.create')}}" class="btn btn-primary ms-3">Add new Product</a>
+        <a href="{{route('products.trashed')}}" class="btn btn-secondary ms-1">Trashes</a>
+    </div>
     <div class="card text-white bg-secondary m-3">
         <div class="card-header">
             <div class="card-tools">
@@ -27,19 +29,7 @@
                     <span class="input-group-append">
                         <button type="submit" class="btn btn-info btn-flat">Seach</button>
                     </span>
-                    {{-- <button class="btn btn-primary"></button> --}}
                 </form>
-                {{-- <form action="{{route('products.search')}}" method="get">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="query" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
             </div>
         </div>
 
@@ -61,19 +51,18 @@
                     @foreach($products as $product)
                     <tr>
                         <td>{{$product->id}}</td>
-                        <td>{{$product->name}}</td>
+                        <td class="fs-5 fw-bold">{{$product->name}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->quantity}}</td>
                         <td>
                             @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" class="rounded-circle" width="50"
-                                height="50">
+                            <img src="{{ asset('storage/' . $product->image) }}" class="rounded" width="50" height="50">
                             @else
-                            <img src="{{ asset('storage/broken-image.png')}}" class="rounded-circle" width="50"
-                                height="50">
+                            <img src="{{ asset('storage/broken-image.png')}}" class="rounded" width="50" height="50">
                             @endif
                         </td>
-                        <td>{{ $product->category ? $product->category->name : '-' }}</td>
+                        <td><span class="badge fs-6 bg-info tx">{{ $product->category ? $product->category->name :
+                                '-' }}</span></td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{route('products.show', $product->id)}}"
