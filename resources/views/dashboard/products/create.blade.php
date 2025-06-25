@@ -66,7 +66,7 @@
 @endsection
 
 @section('scripts')
-<script>
+{{-- <script>
     document.getElementById("image").addEventListener("change", function (event) {
     const reader = new FileReader();
     const file = event.target.files[0];
@@ -80,5 +80,5 @@
     reader.readAsDataURL(file);
     }
     });
-</script>
+</script> --}}
 @endsection

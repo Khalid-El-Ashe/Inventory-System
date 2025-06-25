@@ -1,13 +1,13 @@
 {{-- filepath: resources/views/components/dialog.blade.php --}}
 @props([
-'name' => '',
-'description' => '',
-'price' => '',
-'quantity' => '',
-'category_id' => '',
-'categories' => [],
-'image' => '',
-'id' => ''
+'name' => null,
+'description' => null,
+'price' => null,
+'quantity' => null,
+'category_id' => null,
+'categories' => null,
+'image' => null,
+'id' => null
 ])
 
 <div class="center">

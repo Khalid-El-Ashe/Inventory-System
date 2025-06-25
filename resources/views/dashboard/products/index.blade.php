@@ -1,7 +1,7 @@
 @extends('dashboard.parent')
 @section('content')
 
-@include('components.dialog', [
+{{-- @include('components.dialog', [
 'id' => $product->id,
 'name' => $product->name,
 'description' => $product->description,
@@ -10,14 +10,14 @@
 'category_id' => $product->category_id,
 'categories' => $categories,
 'image' => $product->image
-])
+]) --}}
 
 <div>
     <div class="btn-group mr-2" role="group" aria-label="First group">
         <a href="{{route('products.create')}}" class="btn btn-primary ms-3">Add new Product</a>
         <a href="{{route('products.trashed')}}" class="btn btn-secondary ms-1">Trashes</a>
     </div>
-    <div class="card text-white bg-secondary m-3">
+    <div class="card m-3">
         <div class="card-header">
             <div class="card-tools">
                 <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between mb-4 mx-2">
@@ -34,9 +34,9 @@
         </div>
 
         <!-- /.card-header -->
-        <div class="card-body table-secondary p-0">
+        <div class="card-body p-0">
             <table class="table table-hover text-nowrap">
-                <thead class="table-dark">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -48,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $product)
+                    @forelse($products as $product)
                     <tr>
                         <td>{{$product->id}}</td>
                         <td class="fs-5 fw-bold">{{$product->name}}</td>
@@ -63,31 +63,32 @@
                         </td>
                         <td><span class="badge fs-6 bg-info tx">{{ $product->category ? $product->category->name :
                                 '-' }}</span></td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{route('products.show', $product->id)}}"
-                                    class="btn btn-outline-success mx-1">عرض</a>
-                                {{-- <a href="javascript:void(0);" class="btn btn-outline-info mx-1"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    data-product-id="{{ $product->id }}" data-product-name="{{ $product->name }}"
-                                    data-product-description="{{ $product->description }}"
-                                    data-product-price="{{ $product->price }}"
-                                    data-product-quantity="{{ $product->quantity }}"
-                                    data-product-category="{{ $product->category_id }}"
-                                    data-product-image="{{ $product->image }}">
-                                    تعديل </a> --}}
-                                <a href="{{route('products.edit', $product->id)}}"
-                                    class="btn btn-outline-info mx-1">تعديل</a>
-                                <form action="{{route('products.destroy', $product->id)}}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger mx-1">حذف</button>
-                                </form>
-                            </div>
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="{{route('products.show', $product->id)}}">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="btn btn-info btn-sm" href="{{route('products.edit', $product->id)}}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <form action="{{route('products.destroy', $product->id)}}" method="POST"
+                                style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                    </i>
+                                    Delete</button>
+                            </form>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center">nothing</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
 
@@ -101,7 +102,7 @@
 @endsection
 
 @section('scripts')
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         var dialogFormModel = document.getElementById('exampleModal');
         var form = document.getElementById('productUpdateForm');
@@ -126,5 +127,5 @@
             form.querySelector('select[name="category_id"]').value = categoryId;
         });
     });
-</script>
+</script> --}}
 @endsection
