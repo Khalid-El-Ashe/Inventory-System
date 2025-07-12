@@ -7,6 +7,7 @@ use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
@@ -79,7 +80,7 @@ class ProductController extends Controller
     //     return $this->repository->total();
     // }
 
-    public function search(Request $request)
+    public function search(FormRequest $request)
     {
         return $this->repository->searchProduct($request);
     }

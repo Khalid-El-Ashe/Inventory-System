@@ -14,6 +14,7 @@ class Category extends Model
         'name',
         'image',
     ];
+    
     // i need to call the relation here
     public function products()
     {

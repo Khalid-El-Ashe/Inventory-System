@@ -5,6 +5,7 @@ namespace App\Repositories\Product;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,7 +74,7 @@ class ProductModelRepository implements ProductRepository // you must add this c
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
-    public function searchProduct(Request $request)
+    public function searchProduct(FormRequest $request)
     {
         $query = $request->input('query');
         $products = Product::with('category')

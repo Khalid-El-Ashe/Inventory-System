@@ -13,7 +13,6 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'customer_id',
-        'manage_id',
+        'phone_number',
     ];
 }
