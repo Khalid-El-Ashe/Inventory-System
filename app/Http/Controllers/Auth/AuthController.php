@@ -47,4 +47,15 @@ class AuthController extends Controller
     {
         return $this->repository->logout($request);
     }
+
+    public function showResetPassword($guard)
+    {
+        if (!in_array($guard, ['admin', 'manager', 'customer'])) {
+            abort(404);
+        }
+        return response()->view('auth.reset-password', ['guard' => $guard]);
+    }
+    public function resetPassword(AuthFormRequest $request, $guard) {
+        return $this->repository->resetPassword($request,$guard);
+    }
 }

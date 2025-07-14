@@ -28,6 +28,12 @@
     <script src="{{asset('cms/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('cms/dist/js/adminlte.min.js')}}"></script>
+    {{-- Sweet Alert 2 --}}
+    <script src="{{ asset('js/sweetAlert.js') }}"></script>
+    {{-- Axios --}}
+    <script src="{{ asset('js/axios.js') }}"></script>
+    {{-- my Toaster --}}
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
     @yield('scripts')
 </body>
 

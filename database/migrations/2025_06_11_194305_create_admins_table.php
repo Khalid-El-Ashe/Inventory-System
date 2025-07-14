@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->timestamp('last_active_at')->nullable()
+                ->comment('The last time the user was active on the platform');
+            // $table->rememberToken(); // i do not need this column because i already handle session management in a different way
             $table->timestamps();
         });
     }

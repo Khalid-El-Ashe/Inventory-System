@@ -23,16 +23,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::prefix('auth')->group(function () {
+
+    ## Login Routes
     Route::get('{guard}/login', [AuthController::class, 'showLogin'])->name('auth.login');
     Route::post('{guard}/login', [AuthController::class, 'login'])->name('auth.login.post');
 
+    ## Register Routes
     Route::get('{guard}/register', [AuthController::class, 'showRegister'])->name('auth.register');
     Route::post('{guard}/register', [AuthController::class, 'register'])->name('auth.register.post');
+
+    ## Reset Password Routes
+    Route::get('{guard}/reset-password', [AuthController::class, 'showResetPassword'])->name('auth.reset-password');
+    Route::post('{guard}/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password.post');
 });
 
+## Logout Route
+// This route is outside the auth prefix to allow access without guard
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
@@ -49,7 +58,18 @@ Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
     Route::resource('sales', SaleController::class);
     Route::resource('notifications', NotificationController::class);
     Route::resource('accounts', AccountsController::class);
+
+    ## Change Password Routes
+    Route::get('{guard}/change-password', [DashboardController::class, 'showChangePassword'])->name('change-password');
+    Route::post('{guard}/change-password', [DashboardController::class, 'changePassword'])->name('change-password.post');
+
 });
+
+## if i need to test session data and check if session is working
+Route::get('/test-session', function () {
+    return dd(session()->all());
+});
+
 Route::prefix('dashboard/manager')->middleware('auth:manager')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('manager.dashboard');
 });

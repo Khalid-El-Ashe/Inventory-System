@@ -16,6 +16,10 @@
     <div class="btn-group mr-2" role="group" aria-label="First group">
         <a href="{{route('products.create')}}" class="btn btn-primary ms-3">Add new Product</a>
         <a href="{{route('products.trashed')}}" class="btn btn-secondary ms-1">Trashes</a>
+
+        {{-- <button type="button" class="btn btn-success ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add via Modal
+        </button> --}}
     </div>
     <div class="card m-3">
         <div class="card-header">
@@ -32,6 +36,8 @@
                 </form>
             </div>
         </div>
+
+        {{-- @include('dashboard.products._model-form') --}}
 
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -99,33 +105,4 @@
     </div>
 </div>
 
-@endsection
-
-@section('scripts')
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var dialogFormModel = document.getElementById('exampleModal');
-        var form = document.getElementById('productUpdateForm');
-
-        dialogFormModel.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-
-            // i need to get the data attributes from the button
-            var productId = button.getAttribute('data-product-id');
-            var productName = button.getAttribute('data-product-name');
-            var productDescription = button.getAttribute('data-product-description');
-            var productPrice = button.getAttribute('data-product-price');
-            var productQuantity = button.getAttribute('data-product-quantity');
-            var categoryId = button.getAttribute('data-product-category');
-
-            // Set the form action and values
-            form.action = '/dashboard/admin/products/' + productId;
-            form.querySelector('input[name="name"]').value = productName;
-            form.querySelector('textarea[name="description"]').value = productDescription;
-            form.querySelector('input[name="price"]').value = productPrice;
-            form.querySelector('select[name="quantity"]').value = productQuantity;
-            form.querySelector('select[name="category_id"]').value = categoryId;
-        });
-    });
-</script> --}}
 @endsection

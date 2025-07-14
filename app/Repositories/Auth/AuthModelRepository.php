@@ -12,6 +12,20 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
+// if ($deleted) {
+//             // i need to return the json data to use it in my function js
+//             return response()->json([
+//                 'title' => 'Deleted successfully',
+//                 'icon' => 'success',
+//             ]);
+//         } else {
+//             return response()->json([
+//                 'title' => 'Delete faild',
+//                 'icon' => 'danger',
+//             ]);
+//         }
+
 class AuthModelRepository implements AuthRepository // you must add this class in the RepositoryServiceProvider
 {
     public function login(AuthFormRequest $request)
@@ -21,17 +35,18 @@ class AuthModelRepository implements AuthRepository // you must add this class i
 
         $credentials = $request->only('email', 'password');
         $guard = $validated['guard'];
-        $remember = $validated['remember'] ?? false;
+
+        $remember = $request->boolean('remember', false);
 
         if (Auth::guard($guard)->attempt($credentials, $remember)) {
             return response()->json([
                 'message' => 'login is successfully',
                 'redirect' => route($guard . '.dashboard')
-            ], Response::HTTP_OK);
+            ], Response::HTTP_CREATED);
         } else {
             return response()->json([
                 'message' => 'some data login is wrong, please try again.'
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -80,14 +95,33 @@ class AuthModelRepository implements AuthRepository // you must add this class i
         ], Response::HTTP_CREATED);
     }
 
-    public function resetPassword()
+    public function resetPassword(AuthFormRequest $request, $guard)
     {
         // Implement password reset logic
-    }
+        if (!in_array($guard, ['admin', 'manager', 'customer'])) {
+            return response()->json([
+                'message' => 'Invalid user type.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-    public function changePassword()
-    {
-        // Implement password change logic
+        $validated = $request->validated();
+        $model = $this->getModelClass($guard);
+
+        $user = $model::where('email', $validated['email'])->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found.'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $user->password = Hash::make($validated['new_password']);
+        $user->save();
+
+        return response()->json([
+            'message' => "Your password has been reset successfully, you can log in now.",
+            'redirect' => route('auth.login', $guard)
+        ], Response::HTTP_CREATED);
     }
 
     public function getUserProfile()

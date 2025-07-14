@@ -6,6 +6,7 @@ use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,8 +34,23 @@ class ProductModelRepository implements ProductRepository // you must add this c
             $validated['image'] = $imagePath;
         }
         // Create the product
-        Product::create($validated);
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        $iscreated = Product::create($validated);
+
+        if ($iscreated) {
+            return response()->json([
+                'title' => 'Successfully.',
+                'icon' => 'success',
+                'text' => 'Product created successfully.',
+                'redirect' => route('products.index')
+            ], Response::HTTP_CREATED);
+        } else {
+            return response()->json([
+                    'title' => 'Oops...',
+                'icon' => 'error',
+                'text'=> 'Failed to create product, please try again.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        // return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
 

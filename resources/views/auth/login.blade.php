@@ -13,7 +13,7 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href=""><b>Invenrtory</b>Managment</a>
+        <a href="{{ route('welcome') }}"><b>Invenrtory</b>Managment</a>
     </div>
     <!-- /.login-logo -->
 
@@ -57,6 +57,9 @@
                 {{-- <button type="submit" class="btn btn-default float-right">Rgister</button> --}}
                 <a href="{{route('auth.register', $guard)}}" class="btn btn-success float-right">Register</a>
             </div>
+            <div class="text-center my-2">
+                <a href="{{ route('auth.reset-password', $guard) }}" class="btn btn-link">I forgot my password?</a>
+            </div>
             <div class="social-auth-links text-center mb-3">
                 <p>- OR -</p>
                 <div class="card-footer">
@@ -88,7 +91,7 @@
     guard: guard
     };
     const url = `/auth/${guard}/login`;
-    login(url, guard, data);
+    confirmLogin(url, guard, data);
     }
 </script>
 @endsection

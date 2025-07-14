@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -52,8 +53,27 @@ class CategoryController extends Controller
         }
 
         // Create the category
-        Category::create($validator);
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        $isCreated = Category::create($validator);
+
+        if ($isCreated) {
+       return response()->json([
+            'title' => 'Category created successfully.',
+            'icon' => 'success',
+            'text' => 'Category created successfully.',
+            'redirect' => route('categories.index')
+        ], Response::HTTP_CREATED);
+        } else {
+            return response()->json([
+                'title' => 'Oops...',
+                'icon' => 'error',
+                'text' => 'Failed to create category, please try again.',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+
+        // session()->flash('message', 'Category created successfully'); // this message is show when the validate is success
+        //     return redirect()->back();
+        // return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     /**

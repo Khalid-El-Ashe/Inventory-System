@@ -29,7 +29,7 @@ class AuthFormRequest extends FormRequest
             'email' => 'required|string|email',
             'password' => 'required|string|min:6',
             'remember' => 'nullable|boolean',
-            'guard' => 'required|string|in:admin,manager,customer',
+            'guard' => 'required|string|in:admin,manager,customer'
         ];
     }
 
